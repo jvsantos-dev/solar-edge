@@ -66,7 +66,7 @@ O painel interativo exibe dados de temperatura, geração de energia, status de 
 
 Para garantir o funcionamento adequado da plataforma, é necessário instalar as bibliotecas essenciais. Execute o seguinte comando para instalar as dependências:
 
-```bash
+
 pip install pandas numpy plotly dash paho-mqtt
 
 Essas bibliotecas permitem a criação do dashboard interativo e a comunicação eficiente via MQTT.
