@@ -53,14 +53,93 @@ O painel interativo exibe dados de temperatura, geração de energia, status de 
 
 ### 1. Configuração da Plataforma
 
-#### Configuração de Hardware:
+#### Configuração de Hardware
 
 - Instale os sensores meteorológicos (se necessário) e dispositivos de armazenamento (baterias, veículos elétricos).
 - Configure os dispositivos de automação (se desejado) para integração com a plataforma.
 
-#### Configuração de Software:
+#### Configuração de Software
 
 Instale as dependências necessárias:
 
 ```bash
 pip install pandas numpy plotly dash paho-mqtt
+
+## Configuração da Conexão MQTT
+
+Para configurar a comunicação entre os dispositivos da plataforma (como sensores de energia, baterias e veículos elétricos) e a plataforma de gerenciamento, é necessário configurar o **broker MQTT**. A plataforma utiliza MQTT para garantir a troca de dados em tempo real.
+
+### Passos para Configuração:
+
+1. **Escolha um Broker MQTT:** 
+   - Você pode usar brokers como [Mosquitto](https://mosquitto.org/) ou qualquer outro broker MQTT de sua escolha.
+   - Caso utilize Mosquitto, instale-o no seu servidor ou utilize um serviço MQTT em nuvem.
+
+2. **Configuração de Conexão:**
+   - Após configurar o broker, adicione as informações de acesso (host, porta, usuário e senha) ao arquivo de configuração da plataforma.
+
+3. **Exemplo de Configuração MQTT:**
+
+```python
+mqtt_host = "mqtt.exemplo.com"
+mqtt_port = 1883
+mqtt_user = "usuario_mqtt"
+mqtt_password = "senha_mqtt"
+mqtt_topic = "energia/plataforma"
+
+## Uso do Dashboard
+
+### Visualização em Tempo Real:
+
+- O dashboard exibe gráficos de geração de energia renovável, status dos sistemas de armazenamento (baterias e veículos elétricos) e alertas sobre os melhores momentos para armazenar ou consumir energia.
+
+### Interações:
+
+- O usuário pode interagir com o painel para visualizar as previsões de energia para os próximos dias e semanas. Além disso, o painel permite ajustar configurações de automação, como a programação de carregamento dos veículos elétricos.
+
+### Exemplo de Saída:
+
+- **Previsão de Geração de Energia:** Geração Solar Estimada: 4.5 kWh (para o dia de hoje).
+- **Sugestão de Armazenamento:** Armazenar energia de 14h às 16h (alta geração prevista).
+
+**Dashboard:**
+- Gráfico de Temperatura e Umidade da região.
+- Gráfico de Produção de Energia Solar/Eólica.
+- Status em tempo real: "Armazenamento em Bateria: 70%".
+- Notificação: "Recarregar veículo elétrico entre 22h e 23h para aproveitar baixa tarifa."
+
+## Requisitos e Dependências
+
+### Python 3.x
+
+- Certifique-se de ter uma versão do Python compatível.
+
+### Bibliotecas Python
+
+- `numpy`
+- `pandas`
+- `plotly`
+- `dash`
+- `paho-mqtt`
+
+### Broker MQTT (ex: Mosquitto ou similar)
+
+- Necessário para a comunicação entre a plataforma e os dispositivos IoT.
+
+### API de Previsão Climática (opcional)
+
+- Ex: OpenWeather, WeatherAPI.
+
+## Arquitetura (para a turma de fevereiro)
+
+A plataforma segue a arquitetura de **Microserviços**:
+
+- **Frontend (Dashboard):** Interface interativa desenvolvida com Dash, Plotly e gráficos em tempo real.
+- **Backend:** Processamento dos dados de energia, previsão de geração e otimização de consumo, utilizando Python.
+- **Comunicação entre Dispositivos:** MQTT para garantir a troca de dados em tempo real entre dispositivos de geração, armazenamento e veículos elétricos.
+
+A comunicação entre componentes segue o modelo **client-server**, onde o **ESP32** (ou dispositivo similar) atua como cliente e a plataforma de gerenciamento funciona como servidor.
+
+## Autores
+
+- João Victor Oliveira dos Santos RM: 557948
