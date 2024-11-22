@@ -67,82 +67,90 @@ Para instalar as dependências necessárias, execute o seguinte comando:
 ```bash
 pip install pandas numpy plotly dash paho-mqtt
 
-Configuração da Conexão MQTT
+Configuração de Software
+1. Instalação das Dependências
 
-Para configurar a comunicação entre os dispositivos da plataforma (como sensores de energia, baterias e veículos elétricos) e a plataforma de gerenciamento, é necessário configurar o broker MQTT. A plataforma utiliza MQTT para garantir a troca de dados em tempo real.
+Para garantir o funcionamento adequado da plataforma, é necessário instalar as dependências do projeto. Execute o seguinte comando para instalar as bibliotecas essenciais:
 
+pip install pandas numpy plotly dash paho-mqtt
+
+Estas bibliotecas permitem a criação do dashboard interativo e a comunicação eficiente via MQTT.
+2. Configuração da Conexão MQTT
+
+A comunicação entre os dispositivos da plataforma (sensores, baterias, veículos elétricos, entre outros) e o sistema de gerenciamento central é realizada via MQTT. Para isso, você precisará configurar o broker MQTT.
 Passos para Configuração:
 
-    Escolha um Broker MQTT: Você pode usar brokers como Mosquitto ou qualquer outro broker MQTT de sua escolha. Caso utilize o Mosquitto, instale-o no seu servidor ou utilize um serviço MQTT em nuvem.
+    Escolha um Broker MQTT
+    Você pode optar por brokers MQTT como o Mosquitto, que pode ser instalado no seu servidor ou usar serviços MQTT na nuvem, como o HiveMQ.
 
-    Configuração de Conexão: Após configurar o broker, adicione as informações de acesso (host, porta, usuário e senha) ao arquivo de configuração da plataforma.
+    Configuração de Conexão
+    Após configurar o broker, adicione as informações de acesso (host, porta, usuário e senha) no arquivo de configuração da plataforma.
 
-    Exemplo de Configuração MQTT:
+Exemplo de Configuração:
 
-    mqtt_host = "mqtt.exemplo.com"
-    mqtt_port = 1883
-    mqtt_user = "usuario_mqtt"
-    mqtt_password = "senha_mqtt"
-    mqtt_topic = "energia/plataforma"
+mqtt_host = "mqtt.exemplo.com"        # Host do seu broker MQTT
+mqtt_port = 1883                       # Porta padrão do MQTT
+mqtt_user = "usuario_mqtt"             # Usuário para autenticação (se necessário)
+mqtt_password = "senha_mqtt"           # Senha para autenticação (se necessário)
+mqtt_topic = "energia/plataforma"      # Tópico principal de comunicação
 
-Uso do Dashboard
+3. Uso do Dashboard
 
+O Dashboard permite a visualização em tempo real dos dados de energia, status dos sistemas de armazenamento (baterias e veículos elétricos) e alertas para otimização do consumo de energia.
 Visualização em Tempo Real:
 
-    O dashboard exibe gráficos de geração de energia renovável, status dos sistemas de armazenamento (baterias e veículos elétricos) e alertas sobre os melhores momentos para armazenar ou consumir energia.
-
+O dashboard exibe gráficos interativos que mostram a geração de energia renovável (solar e eólica), o status das baterias, veículos elétricos e alertas para o melhor uso de energia, como os horários ideais para carregar as baterias ou veículos elétricos.
 Interações:
 
-    O usuário pode interagir com o painel para visualizar as previsões de energia para os próximos dias e semanas. Além disso, o painel permite ajustar configurações de automação, como a programação de carregamento dos veículos elétricos.
-
+Além de visualizar as previsões de geração de energia para os próximos dias e semanas, o painel permite ao usuário ajustar configurações de automação, como o agendamento de carregamento dos veículos elétricos.
 Exemplo de Saída:
 
     Previsão de Geração de Energia: Geração Solar Estimada: 4.5 kWh (para o dia de hoje).
     Sugestão de Armazenamento: Armazenar energia de 14h às 16h (alta geração prevista).
-
-Dashboard:
-
-    Gráfico de Temperatura e Umidade da região.
-    Gráfico de Produção de Energia Solar/Eólica.
-    Status em tempo real: "Armazenamento em Bateria: 70%".
-    Notificação: "Recarregar veículo elétrico entre 22h e 23h para aproveitar baixa tarifa."
+    Status e Alertas:
+        Gráfico de Temperatura e Umidade da região.
+        Gráfico de Produção de Energia Solar/Eólica.
+        Status: "Armazenamento em Bateria: 70%".
+        Notificação: "Recarregar veículo elétrico entre 22h e 23h para aproveitar baixa tarifa."
 
 Requisitos e Dependências
 
-    Python 3.x: Certifique-se de ter uma versão do Python compatível.
+Antes de rodar o projeto, certifique-se de que você possui os seguintes requisitos:
+
+    Python 3.x: Certifique-se de que a versão do Python seja compatível com as bibliotecas necessárias.
     Bibliotecas Python:
         numpy
         pandas
         plotly
         dash
         paho-mqtt
-    Broker MQTT (ex: Mosquitto ou similar): Necessário para a comunicação entre a plataforma e os dispositivos IoT.
-    API de Previsão Climática (opcional): Ex: OpenWeather, WeatherAPI.
+    Broker MQTT: Você pode usar o Mosquitto ou qualquer outro broker MQTT de sua preferência para a comunicação entre a plataforma e os dispositivos IoT.
+    API de Previsão Climática (opcional): Para integração de dados climáticos em tempo real, você pode usar APIs como OpenWeather ou WeatherAPI.
 
 Projeto: Monitoramento IoT com ESP32 e MQTT
-Descrição
 
-Este projeto utiliza um ESP32 integrado com um sensor DHT22 para monitorar temperatura e umidade em tempo real. As informações são enviadas via MQTT para um broker. Além disso, LEDs controlam dispositivos simulados (ventilador e aquecedor) com base nas leituras do sensor.
+Este projeto utiliza um ESP32 integrado com o sensor DHT22 para monitorar a temperatura e a umidade em tempo real. Os dados coletados são enviados via MQTT para um broker. Além disso, LEDs simulam o controle de dispositivos (ventilador e aquecedor) com base nas leituras dos sensores.
 Arquitetura
-Hardware
+Hardware:
 
-    ESP32: Microcontrolador que gerencia a conexão Wi-Fi e MQTT.
-    DHT22: Sensor para leitura de temperatura e umidade.
-    LEDs: Indicadores de status do sistema (simulando ventilador e aquecedor).
+    ESP32: Microcontrolador responsável pela comunicação Wi-Fi e MQTT.
+    DHT22: Sensor para medir temperatura e umidade do ambiente.
+    LEDs: Simulam dispositivos como ventilador e aquecedor.
 
-Software
+Software:
 
-    Conexão Wi-Fi: Para a transmissão de dados do ESP32.
-    MQTT: Usado para a comunicação entre o ESP32 e o broker MQTT (via biblioteca PubSubClient).
-    Monitoramento de dados: Dados de temperatura e umidade são enviados para tópicos MQTT.
+    Conexão Wi-Fi: O ESP32 transmite dados para a plataforma via Wi-Fi.
+    MQTT: O ESP32 se comunica com o broker MQTT para enviar dados de temperatura e umidade.
+    Monitoramento de Dados: O ESP32 publica dados nos tópicos MQTT para permitir o acompanhamento em tempo real.
 
 Funcionalidades
 Monitoramento de Temperatura e Umidade
 
-    Tópicos MQTT: O ESP32 publica os dados de temperatura e umidade nos seguintes tópicos MQTT:
-        /monitor/temperature: Temperatura atual.
-        /monitor/humidity: Umidade atual.
-        /monitor/status: Status do sistema (ex.: "Ventilador Ligado").
+O ESP32 publica os dados de temperatura e umidade nos seguintes tópicos MQTT:
+
+    /monitor/temperature: Temperatura atual.
+    /monitor/humidity: Umidade atual.
+    /monitor/status: Status do sistema (ex.: "Ventilador Ligado").
 
 Automação com LEDs
 
@@ -153,50 +161,44 @@ Automação com LEDs
 Como Usar
 1. Configuração do Código
 
-Edite as seguintes linhas no código Arduino:
+Edite o código do ESP32 conforme abaixo:
 
-const char* ssid = "Wokwi-GUEST";      // Substitua pelo nome da sua rede Wi-Fi.
-const char* password = "";             // Substitua pela senha da sua rede Wi-Fi.
-const char* mqtt_server = "BROKER_IP"; // Substitua pelo IP público do seu broker MQTT.
-const int mqtt_port = 1883;            // Porta padrão do MQTT (1883).
+const char* ssid = "Wokwi-GUEST";          // Substitua pelo nome da sua rede Wi-Fi.
+const char* password = "";                 // Substitua pela senha da sua rede Wi-Fi.
+const char* mqtt_server = "BROKER_IP";     // Substitua pelo IP do seu broker MQTT.
+const int mqtt_port = 1883;                // Porta padrão do MQTT.
 
 2. Componentes e Conexões
 
     Conecte o DHT22 ao pino 14 do ESP32.
-    Conecte os LEDs ao pino 13 (Ventilador) e pino 15 (Aquecedor).
+    Conecte os LEDs aos pinos 13 (Ventilador) e 15 (Aquecedor).
 
 3. Configuração do Broker MQTT
 
-    Configure um broker MQTT local (ex.: Mosquitto) ou utilize um broker público.
-    Certifique-se de que o broker esteja acessível no endereço especificado.
-
+Configure um broker MQTT local (ex.: Mosquitto) ou utilize um broker público. Certifique-se de que o broker esteja acessível no endereço especificado no código.
 4. Carregamento do Código
 
-    Use a Arduino IDE para compilar e carregar o código no ESP32.
-    Instale as bibliotecas necessárias:
-        PubSubClient
-        Adafruit SSD1306
-        DHT
+Utilize a Arduino IDE para compilar e carregar o código no ESP32. Instale as bibliotecas necessárias, como:
+
+    PubSubClient
+    Adafruit SSD1306
+    DHT
 
 5. Testando o Sistema
 
-    Após carregar o código, o ESP32 tentará se conectar à rede Wi-Fi.
-    O display exibirá a temperatura, umidade e o status da conexão.
-    Verifique os tópicos MQTT configurados para visualizar os dados enviados.
+Após carregar o código no ESP32, ele tentará se conectar à rede Wi-Fi. O display exibirá a temperatura, umidade e status da conexão. Verifique os tópicos MQTT para visualizar os dados enviados.
 
-Arquitetura Visual
-
-[Texto do seu parágrafo.pdf](https://github.com/user-attachments/files/17876429/Texto.do.seu.paragrafo.pdf)
-
-Tópicos MQTT:
+Arquitetura do Sistema
+Exemplos de Tópicos MQTT:
 
     /monitor/temperature: 24.50
     /monitor/humidity: 55.00
     /monitor/status: "Ventilador Ligado"
 
-A plataforma segue a arquitetura de Microserviços:
+A plataforma segue a arquitetura de Microserviços, onde o ESP32 funciona como cliente e a plataforma de gerenciamento como servidor. A comunicação entre os componentes é realizada de forma eficiente via MQTT.
+Autores
 
-    Frontend (Dashboard): Interface interativa desenvolvida com Dash, Plotly e gráficos em tempo real.
+João Victor Oliveira dos Santos - RM: 557948
     Backend: Processamento dos dados de energia, previsão de geração e otimização de consumo, utilizando Python.
     Comunicação entre Dispositivos: MQTT para garantir a troca de dados em tempo real entre dispositivos de geração, armazenamento e veículos elétricos.
 
