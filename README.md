@@ -102,3 +102,13 @@ A plataforma segue a arquitetura de Microserviços:
 Autores
 
     João Victor Oliveira dos Santos - RM: 557948
+
+
+Projeto: Monitoramento IoT com ESP32, MQTT e Dashboard Interativo
+Descrição Geral
+
+Este projeto integra um sistema de monitoramento IoT utilizando o ESP32 para leitura de temperatura e umidade, com envio de dados via MQTT para um broker. Os dados são exibidos em tempo real em um painel interativo desenvolvido com a biblioteca Dash. LEDs simulam ações de controle (como ventilação ou aquecimento) com base nas leituras.
+Arquitetura do Sistema
+Hardware:
+
+
