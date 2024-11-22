@@ -60,31 +60,23 @@ O painel interativo exibe dados de temperatura, geração de energia, status de 
 
 #### Configuração de Software
 
-**Instalação das Dependências**
+## Instalação e Configuração
 
-Para instalar as dependências necessárias, execute o seguinte comando:
+### 1. Instalação das Dependências
+
+Para garantir o funcionamento adequado da plataforma, é necessário instalar as bibliotecas essenciais. Execute o seguinte comando para instalar as dependências:
 
 ```bash
 pip install pandas numpy plotly dash paho-mqtt
 
-Configuração de Software
-1. Instalação das Dependências
-
-Para garantir o funcionamento adequado da plataforma, é necessário instalar as dependências do projeto. Execute o seguinte comando para instalar as bibliotecas essenciais:
-
-pip install pandas numpy plotly dash paho-mqtt
-
-Estas bibliotecas permitem a criação do dashboard interativo e a comunicação eficiente via MQTT.
+Essas bibliotecas permitem a criação do dashboard interativo e a comunicação eficiente via MQTT.
 2. Configuração da Conexão MQTT
 
-A comunicação entre os dispositivos da plataforma (sensores, baterias, veículos elétricos, entre outros) e o sistema de gerenciamento central é realizada via MQTT. Para isso, você precisará configurar o broker MQTT.
+A comunicação entre os dispositivos da plataforma (sensores, baterias, veículos elétricos, entre outros) e o sistema de gerenciamento central é realizada via MQTT. Para isso, você precisará configurar um broker MQTT.
 Passos para Configuração:
 
-    Escolha um Broker MQTT
-    Você pode optar por brokers MQTT como o Mosquitto, que pode ser instalado no seu servidor ou usar serviços MQTT na nuvem, como o HiveMQ.
-
-    Configuração de Conexão
-    Após configurar o broker, adicione as informações de acesso (host, porta, usuário e senha) no arquivo de configuração da plataforma.
+    Escolha um Broker MQTT: Você pode optar por brokers MQTT como o Mosquitto, que pode ser instalado no seu servidor, ou usar serviços MQTT na nuvem, como o HiveMQ.
+    Configuração de Conexão: Após configurar o broker, adicione as informações de acesso (host, porta, usuário e senha) no arquivo de configuração da plataforma.
 
 Exemplo de Configuração:
 
@@ -187,22 +179,14 @@ Utilize a Arduino IDE para compilar e carregar o código no ESP32. Instale as bi
 5. Testando o Sistema
 
 Após carregar o código no ESP32, ele tentará se conectar à rede Wi-Fi. O display exibirá a temperatura, umidade e status da conexão. Verifique os tópicos MQTT para visualizar os dados enviados.
-
 Arquitetura do Sistema
+
 Exemplos de Tópicos MQTT:
 
     /monitor/temperature: 24.50
     /monitor/humidity: 55.00
     /monitor/status: "Ventilador Ligado"
 
-A plataforma segue a arquitetura de Microserviços, onde o ESP32 funciona como cliente e a plataforma de gerenciamento como servidor. A comunicação entre os componentes é realizada de forma eficiente via MQTT.
-Autores
-
-João Victor Oliveira dos Santos - RM: 557948
-    Backend: Processamento dos dados de energia, previsão de geração e otimização de consumo, utilizando Python.
-    Comunicação entre Dispositivos: MQTT para garantir a troca de dados em tempo real entre dispositivos de geração, armazenamento e veículos elétricos.
-
-A comunicação entre componentes segue o modelo client-server, onde o ESP32 (ou dispositivo similar) atua como cliente e a plataforma de gerenciamento funciona como servidor.
 Autores
 
 João Victor Oliveira dos Santos - RM: 557948
