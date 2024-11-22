@@ -84,4 +84,4 @@ Passos:
 
 ## Considerações Finais
 
-# Este projeto demonstra como integrar sensores simples com MQTT, criando um sistema de monitoramento em tempo real com ESP32. O código está configurado para testes na plataforma Wokwi, permitindo explorar a IoT de forma prática, sem a necessidade de hardware físico.
+Este projeto demonstra como integrar sensores simples com MQTT, criando um sistema de monitoramento em tempo real com ESP32. O código está configurado para testes na plataforma Wokwi, permitindo explorar a IoT de forma prática, sem a necessidade de hardware físico.
