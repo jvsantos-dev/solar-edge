@@ -6,3 +6,82 @@ log_dest file /var/log/mosquitto/mosquitto.log
 include_dir /etc/mosquitto/conf.d
 listener 1883 0.0.0.0
 allow_anonymous true
+
+
+### Ver se consegue se conectar no mqtt
+import paho.mqtt.client as mqtt
+from collections import deque
+import time
+
+# Variáveis globais para armazenar os dados
+temperatures = deque(maxlen=50)
+humidities = deque(maxlen=50)
+luminosities = deque(maxlen=50)
+statuses = deque(maxlen=50)
+timestamps = deque(maxlen=50)
+
+# Configuração do Broker MQTT
+BROKER = "74.163.88.61"  # IP do broker MQTT
+PORT = 1883              # Porta MQTT
+TOPIC_TEMP = "/monitor/temperature"
+TOPIC_HUM = "/monitor/humidity"
+TOPIC_LUX = "/monitor/lux"
+TOPIC_STATUS = "/monitor/status"
+
+# Função de callback chamada quando a conexão for bem-sucedida
+def on_connect(client, userdata, flags, rc):
+    print(f"Conectado ao broker MQTT com o código: {rc}")
+    if rc == 0:
+        # Inscreve-se nos tópicos após a conexão
+        client.subscribe([(TOPIC_TEMP, 0), (TOPIC_HUM, 0), (TOPIC_LUX, 0), (TOPIC_STATUS, 0)])
+    else:
+        print(f"Falha na conexão MQTT, código de erro: {rc}")
+
+# Função de callback chamada quando uma mensagem é recebida
+def on_message(client, userdata, msg):
+    global temperatures, humidities, luminosities, statuses, timestamps
+    topic = msg.topic
+    payload = msg.payload.decode()
+    current_time = time.time()  # Usando timestamp real para registrar o tempo de recepção
+
+    if topic == TOPIC_TEMP:
+        print(f"Temperatura recebida: {payload}")
+        temperatures.append(float(payload))
+        timestamps.append(current_time)
+    elif topic == TOPIC_HUM:
+        print(f"Umidade recebida: {payload}")
+        humidities.append(float(payload))
+    elif topic == TOPIC_LUX:
+        print(f"Luminosidade recebida: {payload}")
+        luminosities.append(float(payload))
+    elif topic == TOPIC_STATUS:
+        print(f"Status recebido: {payload}")
+        statuses.append(payload)
+
+# Função principal para conectar ao broker e iniciar o loop MQTT
+def start_mqtt():
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_message = on_message
+
+    # Tenta se conectar ao broker
+    try:
+        client.connect(BROKER, PORT, 120)
+    except Exception as e:
+        print(f"Erro de conexão: {e}")
+        return
+
+    # Inicia o loop de comunicação com o broker
+    client.loop_start()
+
+    # Mantém o script ativo
+    try:
+        while True:
+            time.sleep(1)  # Mantém o script ativo sem consumir muita CPU
+    except KeyboardInterrupt:
+        print("Desconectando...")
+        client.loop_stop()  # Para o loop MQTT de forma limpa
+        client.disconnect()  # Desconecta do broker
+
+if __name__ == "__main__":
+    start_mqtt()
