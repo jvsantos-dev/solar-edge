@@ -187,6 +187,8 @@ Exemplos de Tópicos MQTT:
     /monitor/humidity: 55.00
     /monitor/status: "Ventilador Ligado"
 
-## Autores
+LINK WOKWI: https://wokwi.com/projects/414555369170164737
 
-# João Victor Oliveira dos Santos - RM: 557948
+# Autor
+
+João Victor Oliveira dos Santos - RM: 557948
