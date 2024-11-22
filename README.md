@@ -187,6 +187,6 @@ Exemplos de Tópicos MQTT:
     /monitor/humidity: 55.00
     /monitor/status: "Ventilador Ligado"
 
-Autores
+## Autores
 
-João Victor Oliveira dos Santos - RM: 557948
+# João Victor Oliveira dos Santos - RM: 557948
